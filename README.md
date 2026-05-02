@@ -399,21 +399,26 @@ run '~/.tmux/plugins/tpm/tpm'
 #### TMUX Cheat sheets
 
 [tmuxcheatsheet.com](https://tmuxcheatsheet.com/?source=post_page)
+
 [tmux-cheatsheet.markdown](https://gist.github.com/MohamedAlaa/2961058)
-[Tmux Cheatsheet](https://linuxize.com/cheatsheet/tmux/)
+
+[TMUX Cheatsheet](https://linuxize.com/cheatsheet/tmux/)
 
 #### Plugins
 
-[Tmux Plugin Manager (TPM)](https://github.com/tmux-plugins/tpm)
+[TMUX Plugin Manager (TPM)](https://github.com/tmux-plugins/tpm)
+
 [List of TPM plugins](https://github.com/tmux-plugins/list)
 
 #### Docs and Other
 
 [TMUX Man Page](https://man7.org/linux/man-pages/man1/tmux.1.html)
+
 [TMUX Wiki - Getting Started](https://github.com/tmux/tmux/wiki/Getting-Started)
+
 [Awesome Tmux](https://github.com/rothgar/awesome-tmux?tab=readme-ov-file)
 
-https://hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/
+[A guide to customizing your TMUX config](https://hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/)
 
 ## Extra: Considerations when using docker compose develop 'watch' functionality
 
@@ -421,10 +426,10 @@ If you're making use of ["Compose Watch"](https://docs.docker.com/compose/how-to
 
 See [`docker-compose.watch.yml`](https://github.com/moofoo/docker-tmux-tutorial/docker-compose.watch.yml) and [`.tmuxinator.watch.yml`](https://github.com/moofoo/docker-tmux-tutorial/.tmuxinator.watch.yml) in the example [repo]((https://github.com/moofoo/docker-tmux-tutorial).
 
-You can try out the 'watch' compose/tmuxinator config by running
+You can try out the 'watch' docker compose/tmuxinator config by running
 
 ```bash
-tmuxinator start
+tmuxinator start -p .tmuxinator.watch.yml
 ```
 
 ```yaml

@@ -14,6 +14,8 @@ After a (very) brief overview of basic TMUX commands, we'll look at using tmuxin
 
 This tutorial was written for Linux or WSL users (I'm running Ubuntu).
 
+([Example repo](https://github.com/moofoo/docker-tmux-tutorial))
+
 ### Article Index
 
 - [Install Packages](#packages)
@@ -50,7 +52,7 @@ As the end-goal here is to show how to use tmuxinator .yaml configs to create be
 
 The first thing to know about TMUX is that the standard commands all follow a "prefix" key combination.
 
-The default prefix is `Ctrl + b`, but when we get to configuring TMUX with the `~/.tmux.config file`, we'll be changing this to the more conveniet combo 'Ctrl + a'.
+The default prefix is `Ctrl + b`, but when we get to configuring TMUX with the `~/.tmux.config file`, we'll be changing this to the more conveniet combo `Ctrl + a`.
 
 If you want to follow along for the rest of this section, run `tmux` in your terminal to start a session.
 
@@ -74,7 +76,7 @@ Back in TMUX, enter the prefix `Ctrl + b` and then `:` (shift key necessary).
 
 This opens a command prompt at the bottom of the screen, where you can run TMUX cli commands (like 'kill-session', for example).
 
-Pressing 'ESC" will close the command prompt.
+Pressing `ESC` will close the command prompt.
 
 ## <u>Configuring TMUX with the ~/.tmux.config file</u> <a name="config"></a>
 
@@ -130,16 +132,15 @@ set -g pane-border-format '#[bold]#{pane_title}#[default]'
 
 #### Summary
 
-1. Mouse mode\* is turned on
-2. Scrollback (history) limit is increased
-3. The TMUX prefix is changed from `Ctrl + b` to `Ctrl + a`
+- Mouse mode\* is turned on
+- Scrollback (history) limit is increased
+- The TMUX prefix is changed from `Ctrl + b` to `Ctrl + a`
+  - (The following shortcut key combinations do not require the prefix):
 
-- (you do not need to enter prefix before the following shortcuts:)
-
-3. Alt + Direction Key -- changes panes
-4. Alt + Shift + Left/Right Key -- changes windows
-5. Ctrl + Shift + x -- kills the current session, exiting TMUX
-6. Ctrl + Shift + k -- Clears the currently activce pane (as well as scrollback history)
+- Alt + Arrow Direction Key -- changes panes
+- Alt + Shift + Arrow Left/Right Key -- changes windows
+- Ctrl + Shift + x -- kills the current session, exiting TMUX
+- Ctrl + Shift + k -- Clears the current active pane (as well as scrollback history)
 
 \* Mouse mode gives you
 
@@ -243,7 +244,7 @@ on_project_exit: docker compose stop
 
 The "on_project_start" config tells tmuxinator to run [`docker compose up`](https://docs.docker.com/reference/cli/docker/compose/up/) in detached mode when it starts.
 
-The "on project\*exit" config tells it to run `docker compose stop` **_when the session ends_**. (In other words, if you enter the `"Ctrl + Shift + x"` shortcut combo we previously configured in `~/.tmux.config`, it will end the TMUX session and stop the docker compose project).
+The "on project\*exit" config tells it to run [`docker compose stop`](https://docs.docker.com/reference/cli/docker/compose/stop/) **_when the session ends_**. (In other words, if you enter the `"Ctrl + Shift + x"` shortcut combo we previously configured in `~/.tmux.config`, it will end the TMUX session and stop the docker compose project).
 
 ```yml
 windows:

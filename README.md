@@ -1,10 +1,10 @@
-# Docker basics: Using TMUX for a better docker compose experience
-
-This tutorial was written for Linux or WSL users (I'm running Ubuntu).
+# Docker basics: Using TMUX and tmuxinator for a better docker compose experience
 
 This tutorial provides a practical introduction to [TMUX](https://github.com/tmux/tmux/wiki) and how you can use [tmuxinator](https://github.com/tmuxinator/tmuxinator) to easily set up terminal dashboards with logs and shell sessions for your docker compose projects.
 
 After a (very) brief overview of basic TMUX commands, we'll look at using tmuxinator to more easily configure TMUX via .yaml config files, and at the end we'll go over how to install and use TMUX plugins.
+
+This tutorial was written for Linux or WSL users (I'm running Ubuntu).
 
 ## Install necessary packages
 
@@ -31,9 +31,9 @@ As the end-goal here is to show how to use tmuxinator .yaml configs to create be
 
 The first thing to know about TMUX is that the standard commands all follow a "prefix" key combination.
 
-The default prefix is `Ctrl + b`, but when we get configuring TMUX with the ~/.tmux.config file, we'll be changing this to the more conveniet combo 'Ctrl + a'.
+The default prefix is `Ctrl + b`, but when we get to configuring TMUX with the `~/.tmux.config file`, we'll be changing this to the more conveniet combo 'Ctrl + a'.
 
-If you want to follow along for the rest of this section, you can run `tmux` in your terminal to start a session.
+If you want to follow along for the rest of this section, run `tmux` in your terminal to start a session.
 
 #### How to show the list of TMUX keybindings
 
@@ -222,7 +222,7 @@ on_project_exit: docker compose stop
 
 The "on_project_start" config tells tmuxinator to run docker compose up in detached mode when it starts.
 
-The "on project_exit" config tells it to run `docker compose stop` \*\*\_when the session ends\*\*\*. (In other words, if you enter the `Ctrl + Shift + x` shortcut combo we previously configured in `~/.tmux.config`, it will end the TMUX session and stop the docker compose project).
+The "on project\*exit" config tells it to run `docker compose stop` **_when the session ends_**. (In other words, if you enter the `"Ctrl + Shift + x"` shortcut combo we previously configured in `~/.tmux.config`, it will end the TMUX session and stop the docker compose project).
 
 ```yml
 windows:
@@ -291,7 +291,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 #### 2. Edit your ~/.tmux.config file to use the plugin
 
-At the top of the `.tmux.config` before anything else, add the line :
+At the top of the `~/.tmux.config` before anything else, add the line:
 
 ```bash
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
@@ -299,7 +299,7 @@ set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 
 (follow the above pattern for all plugins)
 
-Then, at the very bottom of `.tmux.config (after everything else), add the line:
+Then, at the very bottom of `~/.tmux.config` (after everything else), add the line:
 
 ```bash
 run '~/.tmux/plugins/tpm/tpm'
@@ -307,7 +307,7 @@ run '~/.tmux/plugins/tpm/tpm'
 
 #### 2. Configure/use the plugin
 
-This plugin gives TMUX a new template string, `#{prefix_highlight}`. Assuming you've been following this tutorial, again in the `.tmux.config` file change the line (35 for me) from
+This plugin gives TMUX a new template string, `#{prefix_highlight}`. Assuming you've been following this tutorial, change the following line (35 for me) from
 
 ```bash
 set -g status-left ''

@@ -281,7 +281,9 @@ This window definition creates a window named "shell", with the following panes:
       - home: clear
 ```
 
-For convenience, this window definition opens your command line on the current (actual) directory
+For convenience, this window definition opens your command line on the current (actual) directory.
+
+If you want to see how this dashboard would be created with TMUX commands, check out the [tmux.sh script](https://github.com/moofoo/docker-tmux-tutorial/blob/main/tmux.sh)
 
 ## Extending TMUX with the Tmux Plugin Manager
 

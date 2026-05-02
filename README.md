@@ -1,3 +1,11 @@
+Assuming you've installed both `TMUX` and `tmuxinator`, you can run
+
+```bash
+tmuxinator start
+```
+
+To star the docker compose project and open the TMUX dashboard.
+
 # Docker basics: Using TMUX and tmuxinator for a better docker compose experience
 
 This tutorial provides a practical introduction to [TMUX](https://github.com/tmux/tmux/wiki) and how you can use [tmuxinator](https://github.com/tmuxinator/tmuxinator) to easily set up terminal dashboards with logs and shell sessions for your docker compose projects.

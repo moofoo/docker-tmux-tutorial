@@ -10,11 +10,21 @@ To star the docker compose project and open the TMUX dashboard.
 
 This tutorial provides a practical introduction to [TMUX](https://github.com/tmux/tmux/wiki) and how you can use [tmuxinator](https://github.com/tmuxinator/tmuxinator) to easily set up terminal dashboards with logs and shell sessions for your docker compose projects.
 
-After a (very) brief overview of basic TMUX commands, we'll look at using tmuxinator to more easily configure TMUX via .yaml config files, and at the end we'll go over how to install and use TMUX plugins.
+After a (very) brief overview of basic TMUX commands, we'll look at using tmuxinator to more easily configure TMUX with [YAML](https://en.wikipedia.org/wiki/YAML) configuration files, and at the end we'll go over how to install and use TMUX plugins.
 
 This tutorial was written for Linux or WSL users (I'm running Ubuntu).
 
-## Install necessary packages
+### Article Index
+
+- [Install Packages](#packages)
+- [Basic TMUX Commands](#commands)
+- [Configuring TMUX (~/.tmux.config)](#config)
+- [Tmuxinator (.tmuxinator.yml)](#tmuxinator)
+- [TMUX plugins](#plugins)
+- [Resources and Links](#resources)
+- [Extra: Issues with Docker Compose 'Watch'](#watch)
+
+## <u>Install necessary packages</u> <a name="packages"></a>
 
 - TMUX
   - `sudo apt update && sudo apt install tmux`
@@ -23,10 +33,11 @@ This tutorial was written for Linux or WSL users (I'm running Ubuntu).
   - To install the latest version of tmuxinator:
     - Use [Homebrew](https://brew.sh/): `brew install tmuxinator`
     - Or use [RubyGems](https://rubygems.org/): `gem install tmuxinator`
+
   - To install a usually slightly-out-of-date version of tmuxinator (which is probably just fine for this tutorial):
     - `sudo apt update && sudo apt install tmuxinator`
 
-## TMUX command basics
+## <u>TMUX command basics</u> <a name="commands"></a>
 
 As the end-goal here is to show how to use tmuxinator .yaml configs to create bespoke dashboards for docker compose projects, I'm only going to go over the following:
 
@@ -57,7 +68,7 @@ To see a list of running TMUX sessions (from the command line), enter `tmux ls`.
 
 To stop the currently running TMUX session, type `tmux kill-session`
 
-### How to open the 'command prompt' in TMUX and kill the current session and exit TMUX
+#### How to open the 'command prompt' in TMUX and kill the current session and exit TMUX
 
 Back in TMUX, enter the prefix `Ctrl + b` and then `:` (shift key necessary).
 
@@ -65,7 +76,7 @@ This opens a command prompt at the bottom of the screen, where you can run TMUX 
 
 Pressing 'ESC" will close the command prompt.
 
-## Configuring TMUX with the ~/.tmux.config file
+## <u>Configuring TMUX with the ~/.tmux.config file</u> <a name="config"></a>
 
 Assuming you don't already have a tmux config file, create a file named `.tmux.config` in your home directory and paste the following into it:
 
@@ -139,7 +150,7 @@ set -g pane-border-format '#[bold]#{pane_title}#[default]'
 - A right-click menu with some common pane actions.
 - You can also copy text to the clipboard by click-dragging to select, but it's a little wonky.
 
-## Configuring TMUX in .yaml with tmuxinator
+## <u>Configuring TMUX in .yaml with tmuxinator</u> <a name="tmuxinator"></a>
 
 For the remainder of this article I will be referring to this example repo: [docker-tmux-tutorial](https://github.com/moofoo/docker-tmux-tutorial)
 
@@ -215,7 +226,7 @@ windows:
         - home: clear
 ```
 
-#### Let's go over each section of this config file:
+#### Going over each section of this config file from the top:
 
 ```yml
 name: tmuxinator_tut
@@ -283,11 +294,11 @@ This window definition creates a window named "shell", with the following panes 
       - home: clear
 ```
 
-For convenience, this window definition opens your command line on the current (actual) directory.
+Just for convenience, this window definition opens your command line on the current (actual) directory.
 
 If you want to see how this dashboard would be created with TMUX commands, check out the [tmux.sh script](https://github.com/moofoo/docker-tmux-tutorial/blob/main/tmux.sh)
 
-## Extending TMUX with the Tmux Plugin Manager
+## <u>Extending TMUX with the Tmux Plugin Manager</u> <a name="plugins"></a>
 
 The [TMUX Plugin Manager](https://github.com/tmux-plugins/tpm) provides a (relatively) painless way to extend TMUX functionality.
 
@@ -297,7 +308,7 @@ The following instructions will walk you through setting up TPM and installing/c
 
 Run git clone as below to create the necessary files in your $HOME directory:
 
-```
+```shell
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
@@ -394,7 +405,7 @@ set -g pane-border-format '#[bold]#{pane_title}#[default]'
 run '~/.tmux/plugins/tpm/tpm'
 ```
 
-## Resources and Links
+## <u>Resources and Links</u> <a name="resources"></a>
 
 #### TMUX Cheat sheets
 
@@ -420,11 +431,11 @@ run '~/.tmux/plugins/tpm/tpm'
 
 [A guide to customizing your TMUX config](https://hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/)
 
-## Extra: Considerations when using docker compose develop 'watch' functionality
+## <u>Extra: Considerations when using docker compose develop 'watch' functionality</u> <a name="watch"></a>
 
 If you're making use of ["Compose Watch"](https://docs.docker.com/compose/how-tos/file-watch/) functionality in your docker-compose.yml file, you'll need to change your `.tmuxinator.yml` configuration. This is because `docker compose up` cannot run detached while in 'watch' mode.
 
-See [`docker-compose.watch.yml`](https://github.com/moofoo/docker-tmux-tutorial/docker-compose.watch.yml) and [`.tmuxinator.watch.yml`](https://github.com/moofoo/docker-tmux-tutorial/.tmuxinator.watch.yml) in the example [repo]((https://github.com/moofoo/docker-tmux-tutorial).
+See [`docker-compose.watch.yml`](https://github.com/moofoo/docker-tmux-tutorial/docker-compose.watch.yml) and [`.tmuxinator.watch.yml`](https://github.com/moofoo/docker-tmux-tutorial/.tmuxinator.watch.yml) in the example [repo](https://github.com/moofoo/docker-tmux-tutorial).
 
 You can try out the 'watch' docker compose/tmuxinator config by running
 

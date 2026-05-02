@@ -1,0 +1,45 @@
+# Turn on mouse input
+set -g mouse on
+
+# Increase the scrollback limit from 2000 to 10000
+set -g history-limit 10000
+
+# Change TMUX prefix key combo from Ctrl-b to Ctrl-a
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+# Add keybinding to change the focused pane with Alt + direction key
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Add keybinding to select windows with Alt+Shift+Right (next window) or Alt+Shift+Left (previous window).
+bind -n S-M-Right select-window -n
+bind -n S-M-Left select-window -p
+
+# Add Keybinding to kill the current tmux session / exit tmux with Ctrl+Shift+x
+bind -n C-S-x kill-session
+
+# Add keybinding to clear the focused pane with Ctrl+Shift+k
+bind -n C-S-k send-keys -R \; clear-history
+
+# Minor futzing around with the layout
+set -g status-position bottom
+set -g status-justify left
+
+# Set what appears in the lower left
+set -g status-left ''
+set -g status-left-length 15
+
+# Set what appears in the lower right
+set -g status-right '%Y-%m-%d %H:%M '
+set -g status-right-length 50
+
+# Give windows reasonable titles
+setw -g window-status-current-format ' #I #W #F '
+
+# Give panes reasonable titles
+set -g pane-border-status top
+set -g pane-border-format '#[bold]#{pane_title}#[default]'

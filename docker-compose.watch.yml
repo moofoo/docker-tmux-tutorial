@@ -1,0 +1,81 @@
+name: docker-tmux-watch-tutorial
+
+x-defaults: &defaults
+  init: true
+  tty: true
+  restart: on-failure:2
+  networks:
+    - tmux_watch_tut_network
+
+volumes:
+  db_watch_data:
+  redis_watch_data:
+
+networks:
+  tmux_watch_tut_network:
+
+services:
+  watch_web:
+    <<: *defaults
+    ports:
+      - "5176:5176"
+    command: npm run dev
+    working_dir: /usr/src/app
+    environment:
+      - PORT=5176
+    build:
+      args:
+        APP: web
+      context: .
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/web
+          target: /usr/src/app
+          initial_sync: true
+
+        - action: rebuild
+          path: ./apps/web/package-lock.json
+  watch_api:
+    <<: *defaults
+    ports:
+      - "3001:3001"
+    command: npm run dev
+    build:
+      args:
+        APP: api
+      context: .
+    environment:
+      - PORT=3001
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/api
+          target: /usr/src/app
+
+        - action: rebuild
+          path: ./apps/api/package-lock.json
+    depends_on:
+      - watch_db
+
+  watch_db:
+    image: postgres:18-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5434
+    ports:
+      - "5434:5434"
+    volumes:
+      - db_watch_data:/var/lib/postgresql
+      - ./db:/docker-entrypoint-initdb.d
+
+  # Cache Service
+  watch_redis:
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - "6380:6380"
+    volumes:
+      - redis_watch_data:/data

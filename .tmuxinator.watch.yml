@@ -1,0 +1,49 @@
+# ./.tmuxinator.watch.yml
+
+name: tmuxinator_watch_tut
+root: ./
+
+# Don't run docker compose up on_project_start
+# on_project_start: docker compose up --wait -d
+
+on_project_exit: docker compose -f docker-compose.watch.yml stop
+
+windows:
+  - logs:
+      panes:
+        - web:
+            - sleep 1
+            - clear && docker compose -f docker-compose.watch.yml logs --since=1s -f watch_web
+        - api:
+            - sleep 1
+            - clear && docker compose -f docker-compose.watch.yml logs --since=1s -f watch_api
+        - db:
+            - sleep 1
+            - clear && docker compose -f docker-compose.watch.yml logs --since=15s -f watch_db
+        - redis:
+            - sleep 1
+            - clear && docker compose -f docker-compose.watch.yml logs --since=15s -f watch_redis
+  - shell:
+      panes:
+        - web:
+            - sleep 1
+            - clear && docker compose -f docker-compose.watch.yml exec -w /usr/src/app watch_web sh
+        - api:
+            - sleep 1
+            - clear && docker compose -f docker-compose.watch.yml exec -w /usr/src/app watch_api sh
+        - psql:
+            - sleep 1
+            - clear && docker compose -f docker-compose.watch.yml exec watch_db psql -U postgres -d tutorial_db
+        - nestjs_repl:
+            - sleep 1
+            - clear && docker compose -f docker-compose.watch.yml exec -w /usr/src/app watch_api npm run repl
+
+  - home:
+      layout: main-vertical
+      panes:
+        - home: clear
+
+  - watch:
+      layout: main-vertical
+      panes:
+        - watch: docker compose -f docker-compose.watch.yml up --watch

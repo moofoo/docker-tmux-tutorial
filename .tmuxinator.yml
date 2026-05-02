@@ -1,0 +1,34 @@
+# ./.tmuxinator.yml
+
+name: tmuxinator_tut
+root: ./
+
+on_project_start: docker compose up --wait -d
+
+on_project_exit: docker compose stop
+
+windows:
+  - logs:
+      panes:
+        - web: clear && docker compose logs --since=1s -f web
+
+        - api: clear && docker compose logs --since=1s -f api
+
+        - db: clear && docker compose logs --since=15s -f db
+
+        - redis: clear && docker compose logs --since=15s -f redis
+
+  - shell:
+      panes:
+        - web: clear && docker compose exec -w /usr/src/app web sh
+
+        - api: clear && docker compose exec -w /usr/src/app api sh
+
+        - psql: clear && docker compose exec db psql -U postgres -d tutorial_db
+
+        - nestjs_repl: clear && docker compose exec -w /usr/src/app api npm run repl
+
+  - home:
+      layout: main-vertical
+      panes:
+        - home: clear

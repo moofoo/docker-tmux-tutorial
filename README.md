@@ -57,7 +57,7 @@ To see a list of running TMUX sessions (from the command line), enter `tmux ls`.
 
 To stop the currently running TMUX session, type `tmux kill-session`
 
-### How to enter 'command prompt mode' and kill the current session (and also exit TMUX)
+### How to open the 'command prompt' in TMUX and kill the current session and exit TMUX
 
 Back in TMUX, enter the prefix `Ctrl + b` and then `:` (shift key necessary).
 
@@ -65,7 +65,7 @@ This opens a command prompt at the bottom of the screen, where you can run TMUX 
 
 Pressing 'ESC" will close the command prompt.
 
-## ~/.tmux.config
+## Configuring TMUX with the ~/.tmux.config file
 
 Assuming you don't already have a tmux config file, create a file named `.tmux.config` in your home directory and paste the following into it:
 
@@ -174,7 +174,9 @@ If you then run (in the repo directory)
 $ tmuxinator start
 ```
 
-the docker compose project will build (if it needs to) and TMUX will open showing windows and panes per the `./tmuxinator.yml` config file. Let's look at that now:
+the docker compose project will build (if it needs to) and TMUX will open showing windows and panes per the `./tmuxinator.yml` config file.
+
+Let's look at `./tmuxinator.yml` now:
 
 ```yaml
 # ./.tmuxinator.yml
@@ -213,7 +215,7 @@ windows:
         - home: clear
 ```
 
-Let's go over each section of this config file:
+#### Let's go over each section of this config file:
 
 ```yml
 name: tmuxinator_tut
@@ -228,7 +230,7 @@ on_project_start: docker compose up --wait -d
 on_project_exit: docker compose stop
 ```
 
-The "on_project_start" config tells tmuxinator to run docker compose up in detached mode when it starts.
+The "on_project_start" config tells tmuxinator to run [`docker compose up`](https://docs.docker.com/reference/cli/docker/compose/up/) in detached mode when it starts.
 
 The "on project\*exit" config tells it to run `docker compose stop` **_when the session ends_**. (In other words, if you enter the `"Ctrl + Shift + x"` shortcut combo we previously configured in `~/.tmux.config`, it will end the TMUX session and stop the docker compose project).
 
@@ -253,7 +255,7 @@ Here's the first window from the example:
       - red: clear && docker compose logs --since=15s -f redis
 ```
 
-This window definition creates a window named "logs", which has four panes showing the result of running `docker compose logs` for the web, api, db, and redis services.
+This window definition creates a window named "logs", which has four panes showing the result of running [`docker compose logs`](https://docs.docker.com/reference/cli/docker/compose/logs/) for the web, api, db, and redis services.
 
 ```yml
 - shell:
@@ -267,7 +269,7 @@ This window definition creates a window named "logs", which has four panes showi
       - nestjs_repl: clear && docker compose exec -w /usr/src/app api npm run repl
 ```
 
-This window definition creates a window named "shell", with the following panes:
+This window definition creates a window named "shell", with the following panes making use of [`docker compose exec`](https://docs.docker.com/reference/cli/docker/compose/exec/):
 
 1. "web": Opens a shell to the working_dir of the "web" service.
 2. "api": Opens a shell to the working_dir of the "api" service.
@@ -287,9 +289,9 @@ If you want to see how this dashboard would be created with TMUX commands, check
 
 ## Extending TMUX with the Tmux Plugin Manager
 
-The [TMUX Plugin Manager](https://github.com/tmux-plugins/tpm) is an easy way to extend TMUX.
+The [TMUX Plugin Manager](https://github.com/tmux-plugins/tpm) provides a (relatively) painless way to extend TMUX functionality.
 
-The following instructions will walk you through setting up TPM and installing/configuring the [tmux-prefix-highlight](https://github.com/tmux-plugins/tmux-prefix-highlight) plugin, which simply shows an indicator when you have pressed the tmux prefix combo.
+The following instructions will walk you through setting up TPM and installing/configuring the [tmux-prefix-highlight](https://github.com/tmux-plugins/tmux-prefix-highlight) plugin, which simply lets you display an indicator after you press the TMUX prefix combo.
 
 #### 1. Install the Tmux Plugin Manager
 

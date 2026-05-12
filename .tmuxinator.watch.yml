@@ -6,7 +6,7 @@ root: ./
 # Don't run docker compose up on_project_start
 # on_project_start: docker compose up --wait -d
 
-on_project_exit: docker compose -f docker-compose.watch.yml stop
+on_project_stop: docker compose -f docker-compose.watch.yml stop
 
 windows:
   - logs:

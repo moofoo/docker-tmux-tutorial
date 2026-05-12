@@ -5,7 +5,7 @@ root: ./
 
 on_project_start: docker compose up --wait -d
 
-on_project_exit: docker compose stop
+on_project_stop: docker compose stop
 
 windows:
   - logs:

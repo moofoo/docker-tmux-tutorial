@@ -198,7 +198,7 @@ root: ./
 
 on_project_start: docker compose up --wait -d
 
-on_project_exit: docker compose stop
+on_project_stop: docker compose stop
 
 windows:
   - logs:
@@ -239,7 +239,7 @@ The fields above set the tmux session name and tells tmuxinator to run commands 
 ```yml
 on_project_start: docker compose up --wait -d
 
-on_project_exit: docker compose stop
+on_project_stop: docker compose stop
 ```
 
 The "on_project_start" config tells tmuxinator to run [`docker compose up`](https://docs.docker.com/reference/cli/docker/compose/up/) in detached mode when it starts.
@@ -453,7 +453,7 @@ root: ./
 # Don't run docker compose up on_project_start
 # on_project_start: docker compose up --wait -d
 
-on_project_exit: docker compose stop
+on_project_stop: docker compose stop
 
 windows:
   - logs:

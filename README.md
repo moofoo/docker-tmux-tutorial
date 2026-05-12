@@ -20,7 +20,7 @@ This tutorial was written for Linux or WSL users (I'm running Ubuntu).
 
 - [Install Packages](#packages)
 - [Basic TMUX Commands](#commands)
-- [Configuring TMUX (~/.tmux.config)](#config)
+- [Configuring TMUX (~/.tmux.conf)](#config)
 - [Tmuxinator (.tmuxinator.yml)](#tmuxinator)
 - [TMUX plugins](#plugins)
 - [Resources and Links](#resources)
@@ -52,7 +52,7 @@ As the end-goal here is to show how to use tmuxinator .yaml configs to create be
 
 The first thing to know about TMUX is that the standard commands all follow a "prefix" key combination.
 
-The default prefix is `Ctrl + b`, but when we get to configuring TMUX with the `~/.tmux.config file`, we'll be changing this to the more conveniet combo `Ctrl + a`.
+The default prefix is `Ctrl + b`, but when we get to configuring TMUX with the `~/.tmux.conf file`, we'll be changing this to the more conveniet combo `Ctrl + a`.
 
 If you want to follow along for the rest of this section, run `tmux` in your terminal to start a session.
 
@@ -78,9 +78,9 @@ This opens a command prompt at the bottom of the screen, where you can run TMUX 
 
 Pressing `ESC` will close the command prompt.
 
-## <u>Configuring TMUX with the ~/.tmux.config file</u> <a name="config"></a>
+## <u>Configuring TMUX with the ~/.tmux.conf file</u> <a name="config"></a>
 
-Assuming you don't already have a tmux config file, create a file named `.tmux.config` in your home directory and paste the following into it:
+Assuming you don't already have a tmux config file, create a file named `.tmux.conf` in your home directory and paste the following into it:
 
 ```bash
 # Turn on mouse input
@@ -244,7 +244,7 @@ on_project_stop: docker compose stop
 
 The "on_project_start" config tells tmuxinator to run [`docker compose up`](https://docs.docker.com/reference/cli/docker/compose/up/) in detached mode when it starts.
 
-The "on project\*exit" config tells it to run [`docker compose stop`](https://docs.docker.com/reference/cli/docker/compose/stop/) **_when the session ends_**. (In other words, if you enter the `"Ctrl + Shift + x"` shortcut combo we previously configured in `~/.tmux.config`, it will end the TMUX session and stop the docker compose project).
+The "on project\*exit" config tells it to run [`docker compose stop`](https://docs.docker.com/reference/cli/docker/compose/stop/) **_when the session ends_**. (In other words, if you enter the `"Ctrl + Shift + x"` shortcut combo we previously configured in `~/.tmux.conf`, it will end the TMUX session and stop the docker compose project).
 
 ```yml
 windows:
@@ -313,9 +313,9 @@ Run git clone as below to create the necessary files in your $HOME directory:
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-#### 2. Edit your ~/.tmux.config file to use the plugin
+#### 2. Edit your ~/.tmux.conf file to use the plugin
 
-At the top of the `~/.tmux.config` before anything else, add the line:
+At the top of the `~/.tmux.conf` before anything else, add the line:
 
 ```bash
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
@@ -323,7 +323,7 @@ set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 
 (follow the above pattern for all plugins)
 
-Then, at the very bottom of `~/.tmux.config` (after everything else), add the line:
+Then, at the very bottom of `~/.tmux.conf` (after everything else), add the line:
 
 ```bash
 run '~/.tmux/plugins/tpm/tpm'
@@ -350,7 +350,7 @@ You can also add the following lines anywhere before the first and last lines in
 set -g @prefix_highlight_show_copy_mode 'on'
 ```
 
-After making all the changes listed above, your `~/.tmux.config` file should look something like this:
+After making all the changes listed above, your `~/.tmux.conf` file should look something like this:
 
 ```bash
 # Install Plugins
